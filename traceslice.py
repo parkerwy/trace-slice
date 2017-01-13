@@ -67,7 +67,8 @@ def slice(traces):
                 else:
                     raise ValueError('Unkown event type ' + str(type))
 
-    for thread, slicefile in threads.iteritems():
+    for thread in threads:
+        slicefile = threads[thread]
         slicefile.close()
 
 
