@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 import os.path
 import re
 import sys
