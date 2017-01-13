@@ -43,7 +43,7 @@ def slice(traces):
     lastthread = ''
     threads = {}
     for trace in traces:
-        print "processing " + trace + " ......"
+        print("processing " + trace + " ......")
         with open(trace) as tracefile:
             for line in tracefile:
                 type = detect_event_type(line)
@@ -72,7 +72,7 @@ def slice(traces):
 
 
 def print_usage():
-    print "Usage: trace-slicer TRACE_FILE..."
+    print("Usage: trace-slicer TRACE_FILE...")
 
 
 def main():

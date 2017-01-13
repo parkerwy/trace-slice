@@ -8,6 +8,6 @@ python:
   - "3.5"
   - "3.6"
 script:
-  - python -m unittest discover
+  - python -m unittest test_traceslice
 notifications:
   email: false

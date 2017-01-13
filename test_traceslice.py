@@ -35,19 +35,19 @@ class TestGetEventTime(unittest.TestCase):
     def test_get_event_time_with_HKT(self):
         eventtime, thread, logger, level = traceslice.get_event_detail(
             """[10/19/15 22:47:54:792 HKT] 00000045 wle_outbnd_ws 1 com.ibm.bpm.ws.jaxws.connector.SOAPConnector setConfiguration setConfiguration(), connectorConfig = <config type="com.lombardisoftware.client.persistence.SOAPConnectorConfiguration">""")
-        print eventtime
+        print(eventtime)
 
     def test_test_event_time_with_GMT(self):
         eventtime, thread, logger, level = traceslice.get_event_detail(
             """[1/12/17 3:00:01:905 GMT] 00000e5a WICleanupHTM  I   CWTKE0101I: A work item cleanup has been started, the daemon will next run at 'Fri 2017-01-13 03:00:00.879'.""")
-        print eventtime
+        print(eventtime)
 
 
 class TestSlice(unittest.TestCase):
     def setUp(self):
         # Create a temporary directory
         self.test_dir = tempfile.mkdtemp()
-        print 'using temporary dir ' + self.test_dir
+        print('using temporary dir ' + self.test_dir)
         for trace in os.listdir('data'):
             shutil.copy2('data/' + trace, self.test_dir)
 
@@ -55,7 +55,7 @@ class TestSlice(unittest.TestCase):
         # Remove the directory after the test
         print(os.listdir(self.test_dir))
         shutil.rmtree(self.test_dir)
-        print 'temporary dir deleted.'
+        print('temporary dir deleted.')
 
     def test_slice_one_file(self):
         traceslice.slice([self.test_dir + '/trace.log'])
