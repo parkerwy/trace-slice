@@ -73,7 +73,7 @@ def slice(traces):
 
 
 def print_usage():
-    print("Usage: trace-slicer TRACE_FILE...")
+    print("Usage: traceslice.py TRACE_FILE...")
 
 
 def main():
