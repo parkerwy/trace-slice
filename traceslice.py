@@ -51,7 +51,7 @@ def slice(traces):
                     eventtime, thread, logger, level = get_event_detail(line)
                     slicefile = threads.get(thread)
                     if slicefile is None:
-                        dirname = os.path.dirname(trace)
+                        dirname = os.path.dirname(os.path.abspath(trace))
                         slicefile = open(dirname + '/' + sliceprefix + thread + '.log', 'w')
                         threads.update({thread: slicefile})
                     slicefile.write(line)
