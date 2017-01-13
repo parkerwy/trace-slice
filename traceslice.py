@@ -1,6 +1,8 @@
 #!/usr/bin/python
-import sys
+
+import os.path
 import re
+import sys
 from datetime import datetime
 
 EVENT_START_DISPLAY_ENVIRONMENT = 0
@@ -34,23 +36,24 @@ def get_event_detail(line):
     return eventtime, thread, logger, level
 
 
-def slice(paths):
+def slice(traces):
     indexfile = "trace-slice-index.txt"
     sliceprefix = "trace-slice-"
 
     is_display_environment = False
     lastthread = ''
     threads = {}
-    for path in paths:
-        print "processing " + path + " ......"
-        with open(path) as tracefile:
+    for trace in traces:
+        print "processing " + trace + " ......"
+        with open(trace) as tracefile:
             for line in tracefile:
                 type = detect_event_type(line)
                 if type is EVENT_LOG_ENTRY:
                     eventtime, thread, logger, level = get_event_detail(line)
                     slicefile = threads.get(thread)
                     if slicefile is None:
-                        slicefile = open(sliceprefix + thread + '.log', 'w')
+                        dirname = os.path.dirname(trace)
+                        slicefile = open(dirname + '/' + sliceprefix + thread + '.log', 'w')
                         threads.update({thread: slicefile})
                     slicefile.write(line)
                     lastthread = thread
@@ -63,7 +66,7 @@ def slice(paths):
                 elif type is EVENT_END_DISPLAY_ENVIRONMENT:
                     is_display_environment = False
                 else:
-                    raise ValueError('Unkown event type ' + type)
+                    raise ValueError('Unkown event type ' + str(type))
 
     for thread, slicefile in threads.iteritems():
         slicefile.close()
